@@ -1,2 +1,13 @@
 # LeagueClientDebloater
-Remove popups and annoying elements from your League Client
+All in one JS plugin to remove bloat and junk from your League Client.
+
+Features:
+* removes most popups, nags, and notifications including but not limited to: remedy notifactions, report feedback, honor history, chat restriction, tooltips, "I understand" behavior warnings, and much more.
+* Removes junk from settings tab (tos, prviacy notice, code of contuct, etc.)
+* Removes clash tab.
+* Removes missions button and disables functionality - no more annoying "click" sound while in game.
+* Disables telemtry and tracking endpoints to improve privacy and preformance.
+* Forces settings like potato mode to speed up your client by disabling aminations.
+* Force-disables crash reporting.
+* Removes LOR button.
+* 
