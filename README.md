@@ -11,3 +11,7 @@ Features:
 * Forces settings like potato mode to speed up your client by disabling aminations.
 * Force-disables crash reporting.
 * Removes LOR button.
+How to install:
+1) Make sure you have Pengu Loader installed: https://github.com/PenguLoader/PenguLoader
+2) Open Pengu loader and click on the plugins tab, then click "Open folder"
+3) Paste the folder in there after.
