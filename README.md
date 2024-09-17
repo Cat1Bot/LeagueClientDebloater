@@ -5,9 +5,9 @@ Features:
 * removes most popups, nags, and notifications including but not limited to: remedy notifactions, report feedback, honor history, chat restriction, tooltips, "I understand" behavior warnings, and much more.
 * Removes junk from settings tab (tos, prviacy notice, code of contuct, etc.)
 * Removes clash tab.
+* Makes client load 2 times faster (fixes home hubs taking longer to load issue).
 * Removes missions button and disables functionality - no more annoying "click" sound while in game.
 * Disables telemtry and tracking endpoints to improve privacy and preformance.
 * Forces settings like potato mode to speed up your client by disabling aminations.
 * Force-disables crash reporting.
 * Removes LOR button.
-* 
