@@ -152,7 +152,7 @@
     function greyout() {
         const elements = document.querySelectorAll('.lol-settings-general-row, [for="disableEsportsNotifications"], [for="disableCollectionsNotifications"]');
         elements.forEach(element => {
-            element.style.opacity = '0.6';
+            element.style.opacity = '0.65';
             element.style.pointerEvents = 'none';
         });
     }
@@ -183,20 +183,21 @@
 (function AdminWarn() {
     function initializeObserver() {
         const observer = new MutationObserver(function(mutationsList, observer) {
-            const firstGeneralRow = document.querySelector('.lol-settings-general-row');
+            const firstGeneralRow = document.querySelector('.lol-settings-general-row, .lol-settings-notifications-row');
 
             if (firstGeneralRow && !document.querySelector('.admin-warning-box')) {
                 var adminBox = document.createElement('div');
                 adminBox.classList.add('admin-warning-box');
-                adminBox.style.backgroundColor = 'rgba(255, 0, 0, 0.3)';  
+                adminBox.style.backgroundColor = 'rgba(255, 255, 0, 0.2)';  
                 adminBox.style.color = 'white';
-                adminBox.style.padding = '10px';
-                adminBox.style.marginBottom = '10px';
-                adminBox.style.borderRadius = '5px';
-                adminBox.style.border = '1px solid red';
-                adminBox.style.fontWeight = 'bold';
-                adminBox.style.fontFamily = '"LoL Body", Times New Roman';
-                adminBox.textContent = "Some of these settings are enforced by your administrator";
+                adminBox.style.padding = '6px';
+                adminBox.style.marginBottom = '6px';
+                adminBox.style.borderRadius = '3px';
+                adminBox.style.border = '1px solid yellow';
+                adminBox.style.fontWeight = '600';
+		adminBox.style.fontSize = '14px';
+                adminBox.style.fontFamily = '"LoL Body", Arial';
+                adminBox.textContent = "Some of these settings are enforced by League Client Debloater";
 
                 firstGeneralRow.parentNode.insertBefore(adminBox, firstGeneralRow);
             }
