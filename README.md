@@ -22,12 +22,21 @@ All in one JS plugin to remove bloat and junk from your League Client.
 
 # FAQ:
 Q.) How do I disable Vanguard errors?
+
 A.) Open the file and uncomment line 8. WARNING: Do this at your own risk and see this https://www.reddit.com/r/riotgames/comments/1f1z3ca/comment/lk3bqxd/ 
+
 Q.) I actually use Clash and/or Missions, how do I re-enable them?
+
 A.) For Clash delete or comment out lines 9 and 10. For Missions do the same this time to lines 11 and 12.
+
 Q.) How do I see my Eternals again?
+
 A.) If you like the 8 people that actually care about Eternals, delete/comment out line 13.
+
 Q.) Why cant I set the client to auto-close during game?
+
 A.) Having the client set to never close actually speeds it up since it doesnt have to reload resources after game. If enough people don't like this, ill remove enforcement of this setting.
+
 Q.) Why does it say some of these settings are enforced by your administrator?
+
 A.) This plugin automatically enables/disables certain settings to optimize client preformance such as disabling animations. Messing with these settings defeats the whole purpose of optimzing the client so thats why they are locked.
