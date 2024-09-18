@@ -1,7 +1,7 @@
 # LeagueClientDebloater
 All in one JS plugin to remove bloat and junk from your League Client.
 
-#Features:
+# Features:
 * Removes most popups, nags, and notifications including but not limited to: remedy notifactions, report feedback, honor history, chat restriction, tooltips, "I understand" behavior warnings, and much more.
 * Removes junk from settings tab (tos, prviacy notice, code of contuct, etc.)
 * Removes clash tab, Missions, and Eternals. See #FAQ for instructions if you want to re-enable them.
@@ -14,13 +14,13 @@ All in one JS plugin to remove bloat and junk from your League Client.
 * Removes LOR button.
 * (Risky) Optionally disable Vanguard errors. See #FAQ
   
-#How to install:
+# How to install:
 1) Make sure you have Pengu Loader installed: https://github.com/PenguLoader/PenguLoader
 2) Open Pengu loader and click on the plugins tab, then click "Open folder"
 3) Paste LCUdebloatterUltimate in your plugins folder 
 4) Restart client or open devtools (F12/Crtl+Shift+I) to initialize plugin.
 
-#FAQ:
+# FAQ:
 Q.) How do I disable Vanguard errors?
 A.) Open the file and uncomment line 8. WARNING: Do this at your own risk and see this https://www.reddit.com/r/riotgames/comments/1f1z3ca/comment/lk3bqxd/ 
 Q.) I actually use Clash and/or Missions, how do I re-enable them?
