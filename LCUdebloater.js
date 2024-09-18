@@ -23,9 +23,6 @@
         '/eos-memorial',
         '/lol-challenges-latest-level-up',
         '/lol-player-behavior/v1/config',
-        '/PickOrderSwappingTooltipEnabled',
-        '/rune-recommender-auto-select',
-        '/ChampTradingTooltipEnabled',
         '/IsSeasonMemorialModalEnabled',
         '/RankedReferenceModalEnabled',
         '/reward-grants',
@@ -63,7 +60,7 @@
             return;
         }
 
-        if (url === "/lol-settings/v2/config" || url === "/lol-premade-voice/v1/first-experience" || url === "/lol-settings/v1/account/lol-parties" || url === "/lol-lobby/v1/autofill-displayed" || url === "/lol-platform-config/v1/namespaces/LcuHovercard" || url === "/lol-settings/v2/account/LCUPreferences/lol-champ-select") {
+        if (url === "/lol-settings/v2/config" || url === "/lol-premade-voice/v1/first-experience" || url === "/lol-platform-config/v1/namespaces/LcuChampionSelect/PickOrderSwappingTooltipEnabled" || url === "/lol-platform-config/v1/namespaces/LcuChampionSelect/ChampTradingTooltipEnabled" ||url === "/lol-settings/v1/account/lol-parties" || url === "/lol-lobby/v1/autofill-displayed" || url === "/lol-perks/v1/show-auto-modified-pages-notification" || url === "/lol-platform-config/v1/namespaces/LcuHovercard" || url === "/lol-settings/v2/account/LCUPreferences/lol-champ-select") {
             const originalSend = this.send;
             this.send = function(body) {
                 let originalOnReadyStateChange = this.onreadystatechange;
@@ -97,6 +94,8 @@
                             });
                         } else if (url === "/lol-lobby/v1/autofill-displayed") {
                             content = JSON.stringify(true);
+                        } else if (url === "/lol-platform-config/v1/namespaces/LcuChampionSelect/PickOrderSwappingTooltipEnabled" || url === "/lol-platform-config/v1/namespaces/LcuChampionSelect/ChampTradingTooltipEnabled" || url === "/lol-perks/v1/show-auto-modified-pages-notification") {
+                            content = JSON.stringify(false);
                         } else if (url === "/lol-settings/v1/account/lol-parties") {
                             content = JSON.stringify({
                                 data: {
