@@ -20,7 +20,7 @@ All in one JS plugin to remove bloat and junk from your League Client.
 3) Paste LCUdebloatterUltimate in your plugins folder 
 4) Restart client or open devtools (F12/Crtl+Shift+I) to initialize plugin.
 
-#FAQ
+#FAQ:
 Q. How do I disable Vanguard errors?
 A. Open the file and uncomment line 8. WARNING: Do this at your own risk and see this https://www.reddit.com/r/riotgames/comments/1f1z3ca/comment/lk3bqxd/ 
 Q. I actually use Clash and/or Missions, how do I re-enable them?
