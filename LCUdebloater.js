@@ -188,7 +188,7 @@
             if (firstGeneralRow && !document.querySelector('.admin-warning-box')) {
 		var adminBox = document.createElement('div');
 		adminBox.classList.add('admin-warning-box');
-		adminBox.style.backgroundColor = 'rgba(120, 90, 40, 0.3)';  
+		adminBox.style.backgroundColor = '#1e2328';  
 		adminBox.style.color = '#f0e6d2';
 		adminBox.style.padding = '6px';
 		adminBox.style.marginBottom = '10px'; 
