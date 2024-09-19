@@ -187,17 +187,18 @@
 
             if (firstGeneralRow && !document.querySelector('.admin-warning-box')) {
                 var adminBox = document.createElement('div');
-                adminBox.classList.add('admin-warning-box');
-                adminBox.style.backgroundColor = 'rgba(255, 255, 0, 0.2)';  
-                adminBox.style.color = 'white';
-                adminBox.style.padding = '6px';
-                adminBox.style.marginBottom = '6px';
-                adminBox.style.borderRadius = '3px';
-                adminBox.style.border = '1px solid yellow';
-                adminBox.style.fontWeight = '600';
+		adminBox.classList.add('admin-warning-box');
+		adminBox.style.backgroundColor = 'rgba(120, 90, 40, 0.3)';  
+		adminBox.style.color = '#f0e6d2';
+		adminBox.style.padding = '6px';
+		adminBox.style.marginBottom = '10px'; 
+		adminBox.style.borderRadius = '1px';
+		adminBox.style.border = 'none'; 
+		adminBox.style.borderLeft = '4px solid #c89b3c'; 
+		adminBox.style.fontWeight = '600';
 		adminBox.style.fontSize = '14px';
-                adminBox.style.fontFamily = '"LoL Body", Arial';
-                adminBox.textContent = "Some of these settings are enforced by League Client Debloater";
+		adminBox.style.fontFamily = '"LoL Display", Arial';
+		adminBox.textContent = "Some of these settings are enforced by your administrator";
 
                 firstGeneralRow.parentNode.insertBefore(adminBox, firstGeneralRow);
             }
