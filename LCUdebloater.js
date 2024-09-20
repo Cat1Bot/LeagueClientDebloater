@@ -49,7 +49,6 @@
         '/EosNotificationsEnabled',
         '/PlayerNotification',
         '/vignette-notifications',
-        '/lol.client_settings.perks.runeRecommenderEnabled',
         '/LcuSentryJSErrors'
     ];
     const blockedUrlsRegex = new RegExp(blockedUrls.map(s => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|'));
@@ -59,7 +58,7 @@
             return;
         }
 
-        if (url === "/lol-settings/v2/config" || url === "/lol-premade-voice/v1/first-experience" || url === "/lol-platform-config/v1/namespaces/LcuChampionSelect/PickOrderSwappingTooltipEnabled" || url === "/lol-platform-config/v1/namespaces/LcuChampionSelect/ChampTradingTooltipEnabled" ||url === "/lol-settings/v1/account/lol-parties" || url === "/lol-lobby/v1/autofill-displayed" || url === "/lol-perks/v1/show-auto-modified-pages-notification" || url === "/lol-platform-config/v1/namespaces/LcuHovercard" || url === "/lol-settings/v2/account/LCUPreferences/lol-champ-select") {
+        if (url === "/lol-settings/v2/config" || url === "/lol-premade-voice/v1/first-experience" || url === "/lol-platform-config/v1/namespaces/LcuChampionSelect/PickOrderSwappingTooltipEnabled" || url === "/lol-platform-config/v1/namespaces/LcuChampionSelect/ChampTradingTooltipEnabled" ||url === "/lol-settings/v1/account/lol-parties" || url === "/lol-lobby/v1/autofill-displayed" || url === "/lol-perks/v1/show-auto-modified-pages-notification" || url === "/lol-platform-config/v1/namespaces/LcuHovercard") {
             const originalSend = this.send;
             this.send = function(body) {
                 let originalOnReadyStateChange = this.onreadystatechange;
@@ -83,13 +82,6 @@
                             content = JSON.stringify({
                                 Disabled: true,
                                 RoleInfoEnabled: false
-                            });
-                        } else if (url === "/lol-settings/v2/account/LCUPreferences/lol-champ-select") {
-                            content = JSON.stringify({
-                                data: {
-                                    runeRecommenderTutorialTipSeen: false
-                                },
-                                schemaVersion: 0
                             });
                         } else if (url === "/lol-lobby/v1/autofill-displayed") {
                             content = JSON.stringify(true);
@@ -270,13 +262,15 @@
 
         const partiesPayload = {
             "data": {
-                "hasSeenOpenPartyFirstExperience": true,
-                "hasSeenOpenPartyTooltip": true
+                "championTradeToggleTooltipSeen": true,
+                "positionSwapToggleTooltipSeen": true,
+                "reportAndMutingTooltipShown": true,
+                "runeRecommenderTutorialTipSeen": true
             },
-            "schemaVersion": 1
+            "schemaVersion": 0
         };
 
-        fetch('/lol-settings/v1/account/lol-parties', {
+        fetch('/lol-settings/v2/account/LCUPreferences/lol-champ-select', {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
@@ -288,6 +282,8 @@
 })();
 
 import { jsx, render } from 'https://cdn.jsdelivr.net/npm/nano-jsx/+esm';
+
+const internalVersion = 2;
 
 const UpdateAlert = () => {
   const title = "Update Required";
@@ -323,16 +319,25 @@ window.addEventListener('load', async () => {
   const delay = (t) => new Promise(r => setTimeout(r, t));
   const manager = () => document.getElementById('lol-uikit-layer-manager-wrapper');
 
-  const response = await fetch('https://raw.githubusercontent.com/Cat1Bot/LeagueClientDebloater/refs/heads/main/updatecfg/beta.json');
-  const config = await response.json();
-
-  if (config.forceupdate) {
-    while (!manager()) {
-      await delay(800);
+  try {
+    const response = await fetch('https://raw.githubusercontent.com/Cat1Bot/LeagueClientDebloater/refs/heads/main/updatecfgbeta.json');
+    
+    if (!response.ok) {
+      throw new Error(`Network response was not ok: ${response.statusText}`);
     }
 
-    const root = document.createElement('div');
-    render(UpdateAlert, root);
-    manager().appendChild(root);
+    const config = await response.json();
+
+    if (config.internalversion > internalVersion) {
+      while (!manager()) {
+        await delay(1200);
+      }
+
+      const root = document.createElement('div');
+      render(UpdateAlert, root);
+      manager().appendChild(root);
+    }
+  } catch (error) {
+    console.error('Failed to load config:', error);
   }
 });
