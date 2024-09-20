@@ -8,7 +8,7 @@
         //'/lol-vanguard', // Uncomment this line to disable Vanguard errors. Warning: use at your own risk and see this: https://www.reddit.com/r/riotgames/comments/1f1z3ca/comment/lk3bqxd/
         '/lol-clash', // delete or comment out this line and the one below to re-enable Clash.
         '/ClashConfig', // this line too for clash
-        '/lol-missions', // delete or comment out this line and the one below to re-enable Clash.
+        '/lol-missions', // delete or comment out this line and the one below to re-enable Mission.
         '/Missions', // this line too
         '/Eternals/Enabled', // if your like the 8 people that actually gave a crap about Eternals, comment out/delete this line.
         '/telemetry',
@@ -286,3 +286,53 @@
 
     }, false);
 })();
+
+import { jsx, render } from 'https://cdn.jsdelivr.net/npm/nano-jsx/+esm';
+
+const UpdateAlert = () => {
+  const title = "Update Required";
+  const message = `You must update League Client Debloater to continue. <a href="https://github.com/Cat1Bot/LeagueClientDebloater/releases" target="_blank">Click here</a> to get the latest version. After replacing with new version, click reload.`;
+  const refreshText = "Reload";
+  const quitText = "Quit";
+  const refresh = () => location.reload();
+  const shutdown = () => fetch('/process-control/v1/process/quit', { method: 'POST' });
+
+  return jsx/*html*/`
+    <div class="modal" style="position: absolute; inset: 0px;">
+      <lol-uikit-full-page-backdrop class="backdrop" style="display: flex; align-items: center; justify-content: center; position: absolute; inset: 0px;" />
+      <div class="dialog-alert" style="display: flex; align-items: center; justify-content: center; position: absolute; inset: 0px;">
+        <lol-uikit-dialog-frame class="dialog-frame" style="z-index: 0;">
+          <div class="dialog-content">
+            <lol-uikit-content-block class="forced-update" type="dialog-small">
+              <h4>${title}</h4>
+              <hr class="heading-spacer" />
+              <p dangerouslySetInnerHTML=${{ __html: message }}></p>
+            </lol-uikit-content-block>
+          </div>
+          <lol-uikit-flat-button-group type="dialog-frame">
+            <lol-uikit-flat-button class="button-reload" tabindex="1" primary="true" onClick=${refresh}>${refreshText}</lol-uikit-flat-button>
+            <lol-uikit-flat-button class="button-quit" tabindex="2" primary="true" onClick=${shutdown}>${quitText}</lol-uikit-flat-button>
+          </lol-uikit-flat-button-group>
+        </lol-uikit-dialog-frame>
+      </div>
+    </div>
+  `;
+}
+
+window.addEventListener('load', async () => {
+  const delay = (t) => new Promise(r => setTimeout(r, t));
+  const manager = () => document.getElementById('lol-uikit-layer-manager-wrapper');
+
+  const response = await fetch('https://raw.githubusercontent.com/Cat1Bot/LeagueClientDebloater/refs/heads/main/updatecfg/beta.json');
+  const config = await response.json();
+
+  if (config.forceupdate) {
+    while (!manager()) {
+      await delay(800);
+    }
+
+    const root = document.createElement('div');
+    render(UpdateAlert, root);
+    manager().appendChild(root);
+  }
+});
