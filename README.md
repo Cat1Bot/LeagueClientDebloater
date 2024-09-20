@@ -17,7 +17,7 @@ All in one JS plugin to remove bloat and junk from your League Client.
 # How to install
 1) Make sure you have Pengu Loader installed: https://github.com/PenguLoader/PenguLoader
 2) Open Pengu loader and click on the plugins tab, then click "Open folder"
-3) Drag and drop/paste **LCUdebloater.js** in your plugins folder 
+3) Drag and drop/paste **LCUdebloater.js** in your plugins folder. When a new version is released, repeat this step.
 4) Restart client or open devtools (F12/Crtl+Shift+I) to initialize plugin.
 
 # FAQ
