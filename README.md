@@ -19,7 +19,7 @@ All in one JS plugin to remove bloat and junk from your League Client.
 2) Open Pengu loader and click on the plugins tab, then click "Open folder"
 3) Drag and drop/paste **LCUdebloater.js** in your plugins folder. When a new version is released, repeat this step.
 4) Restart client or open devtools (F12/Crtl+Shift+I) to initialize plugin.
-5) Open the hosts file located in C:\Windows\System32\drivers\etc and add the following(press enter after each domain so its on its own line): `0.0.0.0 data.riotgames.com` `0.0.0.0 telemetry.sgp.pvp.net` `0.0.0.0 ekg.riotgames.com` `0.0.0.0 metric-api.newrelic.com` `0.0.0.0 metric-api.newrelic.com`
+5) Open the hosts file located in **C:\Windows\System32\drivers\etc** and add the following(press enter after each domain so its on its own line): `0.0.0.0 data.riotgames.com` `0.0.0.0 telemetry.sgp.pvp.net` `0.0.0.0 ekg.riotgames.com` `0.0.0.0 metric-api.newrelic.com` `0.0.0.0 metric-api.newrelic.com`
 
 # FAQ
 Q.) How do I disable Vanguard errors?
