@@ -41,3 +41,6 @@ A.) This plugin automatically enables/disables certain settings to optimize clie
 Q.) Why do I still see some popups/notifcations?
 
 A.) The plugin is not perfect, Riot may add in new endpoints at any time. If you see anything you would like removed, please open a issue and I will remove it in the next update.
+
+# Coming Soon
+* Option to disable/skip honor system all together. Honoring enemies is cringe.
