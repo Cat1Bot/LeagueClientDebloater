@@ -6,6 +6,7 @@ All in one JS plugin to remove bloat and junk from your League Client.
 * Removes junk from settings tab (tos, prviacy notice, code of contuct, etc.)
 * Removes Clash tab and Eternals.
 * Removes redunant APIs used by the client.
+* Disables notifications.
 * Makes client load 2 times faster (fixes home hubs taking longer to load issue).
 * Removes missions button and disables functionality - no more annoying "click" sound while in game.
 * Disables telemtry and tracking endpoints to improve privacy and preformance.
