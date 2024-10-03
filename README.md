@@ -13,7 +13,6 @@ All in one JS plugin to remove bloat and junk from your League Client.
 * Forces settings like low spec mode to speed up your client by disabling aminations.
 * Force-disables crash reporting.
 * Removes LOR button.
-* (Risky) Optionally disable Vanguard errors. See #FAQ
   
 # How to install
 1) Make sure you have Pengu Loader installed: https://github.com/PenguLoader/PenguLoader
@@ -23,9 +22,6 @@ All in one JS plugin to remove bloat and junk from your League Client.
 5) Open the hosts file located in **C:\Windows\System32\drivers\etc** and add the following(press enter after each domain so its on its own line): `0.0.0.0 data.riotgames.com` `0.0.0.0 telemetry.sgp.pvp.net` `0.0.0.0 ekg.riotgames.com` `0.0.0.0 metric-api.newrelic.com` `0.0.0.0 metric-api.newrelic.com`
 
 # FAQ
-Q.) How do I disable Vanguard errors?
-
-A.) See line 20 in the code.
 
 Q.) Why do I have to use the host file to block the tracking domains you mentioned? Why cant the plugin just do it.
 
