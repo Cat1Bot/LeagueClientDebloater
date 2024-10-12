@@ -3,14 +3,14 @@ All in one JS plugin to remove bloat and junk from your League Client.
 
 # Features
 * Removes most popups, nags, glows, and notifications including but not limited to: remedy notifactions, report feedback, honor history, chat restriction, tooltips, "I understand" behavior warnings, and much more.
-* Removes junk from settings tab (tos, prviacy notice, code of contuct, etc.)
+* Removes junk from settings tab (tos, prviacy notice, code of conduct, etc.)
 * Removes Clash tab and Eternals.
 * Removes redunant APIs used by the client.
 * Disables notifications.
 * Makes client load 2 times faster (fixes home hubs taking longer to load issue).
 * Removes missions button and disables functionality - no more annoying "click" sound while in game.
 * Disables telemtry and tracking endpoints to improve privacy and preformance.
-* Forces settings like low spec mode to speed up your client by disabling aminations.
+* Disables animations to speed up your client and give a cleaner feel.
 * Force-disables crash reporting.
 * Removes LOR button.
   
@@ -38,6 +38,3 @@ A.) This plugin automatically enables/disables certain settings to optimize clie
 Q.) Why do I still see some popups/notifcations?
 
 A.) The plugin is not perfect, Riot may add in new endpoints at any time. If you see anything you would like removed, please open a issue and I will remove it in the next update.
-
-# Coming Soon
-* Option to disable/skip honor system all together. Honoring enemies is cringe.
