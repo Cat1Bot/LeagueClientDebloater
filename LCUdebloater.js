@@ -29,7 +29,6 @@
         '/lol-missions',
         '/sfx-notifications',
         '/lol-leaver-buster/v1/notifications',
-        '/PlayerNotification',
         '/player-notifications',
         '/Missions',
         '/token-upsell',
@@ -150,7 +149,7 @@
     };
 
     const originalFetch = window.fetch;
-    const fetchBlockedUrls = ['/tracing', '/memory/v1/snapshot', '/performance', '/telemetry'];
+    const fetchBlockedUrls = ['/tracing', '/memory', '/performance', '/telemetry', '/LoggingStart'];
     const fetchBlockedUrlsRegex = new RegExp(fetchBlockedUrls.map(s => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|'));
 
     window.fetch = function(input, init) {
@@ -216,7 +215,7 @@
 		adminBox.style.fontWeight = 'bold';
 		adminBox.style.fontSize = '14px';
 		adminBox.style.fontFamily = 'LoL Display, Arial';
-		adminBox.textContent = "Some of these settings are enforced by your administrator";
+		adminBox.textContent = "Some of these settings are enforced by League Client Debloater";
 
                 firstGeneralRow.parentNode.insertBefore(adminBox, firstGeneralRow);
             }
@@ -635,6 +634,7 @@ function $(e) {
         }),
         i.ws.hook("/lol-missions/v1/series", (o, t) => {}),
         i.ws.hook("/lol-missions/v1/missions", (o, t) => {}),
+        i.ws.hook("/lol-platform-config/v1/namespaces/PlayerNotification", (o, t) => {}),
         i.ws.hook("/lol-ranked/v1/notifications", (o, t) => {}),
         i.ws.hook("/player-notifications/v1/notifications", (o, t) => {}),
         i.ws.hook("/lol-statstones/v1/vignette-notifications", (o, t) => {}),
