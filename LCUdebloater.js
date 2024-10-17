@@ -28,7 +28,6 @@
         '/ClashConfig',
         '/lol-missions',
         '/sfx-notifications',
-        '/lol-leaver-buster/v1/notifications',
         '/player-notifications',
         '/Missions',
         '/token-upsell',
@@ -309,7 +308,7 @@
 
 import { jsx, render } from 'https://cdn.jsdelivr.net/npm/nano-jsx/+esm';
 
-const Version = 3;
+const Version = 5;
 
 const UpdateAlert = () => {
   const title = ['Update Required'];
@@ -424,17 +423,17 @@ window.addEventListener('load', async () => {
   }
 });
 
-class S {
+class j {
     constructor(o) {
         this.Context = o;
     }
 }
 let f;
-function C(e) {
+function E(e) {
     if (f != null) throw new Error("UPL is already initialized!");
-    f = new S(e);
+    f = new j(e);
 }
-class k {
+class g {
     constructor(o) {
         this._callback = o;
     }
@@ -443,7 +442,7 @@ class k {
     }
 }
 let u = {};
-const x = new k(I);
+const x = new g(B);
 function P(e, o) {
     x.trigger();
     var t = u[e];
@@ -454,203 +453,207 @@ function T(e, o) {
     var t = u[e];
     t === void 0 ? (u[e] = { pre_callback: void 0, post_callback: o }) : (u[e].post_callback = o);
 }
-function j(e, o) {
-    P(e, (t, r, n) => {
-        if (typeof r != "string") return console.error("UPL: Tried to hook text XHR request but body is not a string!"), n(r);
-        o(r, (s) => {
-            n(s);
+function M(e, o) {
+    P(e, (t, n, i) => {
+        if (typeof n != "string") return console.error("UPL: Tried to hook text XHR request but body is not a string!"), i(n);
+        o(n, (r) => {
+            i(r);
         });
     });
 }
-function M(e, o) {
-    T(e, (t, r) => {
-        if (t.responseType !== "" && t.responseType !== "text") return console.error("UPL: Tried to hook text XHR request but response is not a string!"), r();
-        const n = (s) => {
-            t.responseText != s && Object.defineProperty(t, "responseText", { writable: !0, value: s }), r();
+function L(e, o) {
+    T(e, (t, n) => {
+        if (t.responseType !== "" && t.responseType !== "text") return console.error("UPL: Tried to hook text XHR request but response is not a string!"), n();
+        const i = (r) => {
+            t.responseText != r && Object.defineProperty(t, "responseText", { writable: !0, value: r }), n();
         };
-        o(this.responseText, n);
+        o(this.responseText, i);
     });
 }
-const B = XMLHttpRequest.prototype.open;
-function U(e, o) {
+const U = XMLHttpRequest.prototype.open;
+function z(e, o) {
     var t = u[o.toString()];
     if (t !== void 0) {
-        let r = this.send;
-        this.send = function (n) {
-            if (n instanceof Document) return r.apply(this, [n]);
+        let n = this.send;
+        this.send = function (i) {
+            if (i instanceof Document) return n.apply(this, [i]);
             if (t.pre_callback !== void 0) {
-                let s = (c) => {
-                    n = c;
+                let r = (c) => {
+                    i = c;
                 };
-                t.pre_callback(this, n || null, s);
+                t.pre_callback(this, i || null, r);
             }
             if (t.post_callback !== void 0) {
-                let s = this.onreadystatechange;
+                let r = this.onreadystatechange;
                 this.onreadystatechange = function (c) {
                     if (this.readyState === 4 && t.post_callback !== void 0) {
-                        let p = () => {
-                            s.apply(this, [c]);
+                        let h = () => {
+                            r.apply(this, [c]);
                         };
-                        t.post_callback(this, p);
+                        t.post_callback(this, h);
                         return;
                     }
-                    return s.apply(this, arguments);
+                    return r.apply(this, arguments);
                 };
             }
-            r.apply(this, [n]);
+            n.apply(this, [i]);
         };
     }
-    B.apply(this, arguments);
+    U.apply(this, arguments);
 }
-function I() {
-    XMLHttpRequest.prototype.open = U;
+function B() {
+    XMLHttpRequest.prototype.open = z;
 }
-const z = Object.freeze(Object.defineProperty({ __proto__: null, hookPost: T, hookPre: P, hookTextPost: M, hookTextPre: j }, Symbol.toStringTag, { value: "Module" }));
-let L = {};
-const D = new k(R);
-function O(e, o) {
-    D.trigger(), (L[e] = o);
+const D = Object.freeze(Object.defineProperty({ __proto__: null, hookPost: T, hookPre: P, hookTextPost: L, hookTextPre: M }, Symbol.toStringTag, { value: "Module" }));
+let O = {};
+const H = new g(N);
+function S(e, o) {
+    H.trigger(), (O[e] = o);
 }
-function H(e, o) {
-    O(e, (t, r) => {
-        if (typeof t != "string") return console.error("UPL: Tried to hook text websocket endpoint but content is not a string!"), r(t);
-        o(t, (n) => {
-            r(n);
+function I(e, o) {
+    S(e, (t, n) => {
+        if (typeof t != "string") return console.error("UPL: Tried to hook text websocket endpoint but content is not a string!"), n(t);
+        o(t, (i) => {
+            n(i);
         });
     });
 }
-function R() {
+function N() {
     let e = f?.Context;
     if (e == null) throw new Error("UPL is not initialized!");
     e.rcp.postInit("rcp-fe-common-libs", async (o) => {
         let t = o.getDataBinding;
-        o.getDataBinding = async function (r) {
-            let n = await t.apply(this, arguments),
-                s = function (c, p) {
-                    let a = n.apply(this, arguments),
+        o.getDataBinding = async function (n) {
+            let i = await t.apply(this, arguments),
+                r = function (c, h) {
+                    let a = i.apply(this, arguments),
                         d = a.cache,
-                        b = d._triggerResourceObservers;
+                        y = d._triggerResourceObservers;
                     return (
-                        (d._triggerResourceObservers = function (l, h, m) {
-                            const w = L[l];
-                            return w == null
-                                ? b.apply(this, [l, h, m])
-                                : w(h, (E) => {
-                                      b.apply(this, [l, E, m]);
+                        (d._triggerResourceObservers = function (l, p, m) {
+                            const _ = O[l];
+                            return _ == null
+                                ? y.apply(this, [l, p, m])
+                                : _(p, (C) => {
+                                      y.apply(this, [l, C, m]);
                                   });
                         }),
                         a
                     );
                 };
             return (
-                (s.bindTo = function (c) {
-                    let p = n.bindTo.apply(this, arguments);
-                    return (p.dataBinding = s), p;
+                (r.bindTo = function (c) {
+                    let h = i.bindTo.apply(this, arguments);
+                    return (h.dataBinding = r), h;
                 }),
-                Promise.resolve(s)
+                Promise.resolve(r)
             );
         };
     });
 }
-const N = Object.freeze(Object.defineProperty({ __proto__: null, hook: O, hookText: H }, Symbol.toStringTag, { value: "Module" })),
+const R = Object.freeze(Object.defineProperty({ __proto__: null, hook: S, hookText: I }, Symbol.toStringTag, { value: "Module" })),
     v = new Map(),
-    y = [],
-    g = new k(F);
+    k = [],
+    b = new g(J);
 function q(e, o, t) {
-    g.trigger();
-    var r = { method: o, callback: t },
-        n = v.get(e);
-    n === void 0 ? v.set(e, { hooks: [r], mixins: [] }) : n.hooks.push(r);
+    b.trigger();
+    var n = { method: o, callback: t },
+        i = v.get(e);
+    i === void 0 ? v.set(e, { hooks: [n], mixins: [] }) : i.hooks.push(n);
 }
 function X(e, o, t) {
-    g.trigger();
-    var r = { method: o, callback: t };
-    y.push({ matcher: e, entry: { hooks: [r], mixins: [] } });
+    b.trigger();
+    var n = { method: o, callback: t };
+    k.push({ matcher: e, entry: { hooks: [n], mixins: [] } });
 }
 function A(e, o) {
-    g.trigger();
+    b.trigger();
     var t = v.get(e);
     t === void 0 ? v.set(e, { hooks: [], mixins: [o] }) : t.mixins.push(o);
 }
 function K(e, o) {
-    g.trigger(), y.push({ matcher: e, entry: { hooks: [], mixins: [o] } });
+    b.trigger(), k.push({ matcher: e, entry: { hooks: [], mixins: [o] } });
 }
-function F() {
+function J() {
     let e = f?.Context;
     if (e == null) throw new Error("UPL is not initialized!");
     e.rcp.postInit("rcp-fe-ember-libs", async (o) => {
         const t = o.getEmber;
-        o.getEmber = function (...r) {
-            const n = t.apply(this, r);
+        o.getEmber = function (...n) {
+            const i = t.apply(this, n);
             return (
-                n.then((s) => {
-                    const c = s.Component.extend;
+                i.then((r) => {
+                    const c = r.Component.extend;
                     return (
-                        (s.Component.extend = function (...p) {
+                        (r.Component.extend = function (...h) {
                             let a = c.apply(this, arguments);
-                            const d = p.filter((l) => typeof l == "object");
-                            for (const l of d) for (const h of y) h.matcher(l) && (a = _(s, h.entry, a));
-                            const b = d.filter((l) => l.classNames && Array.isArray(l.classNames)).map((l) => l.classNames.join(" "));
-                            for (const l of b) {
-                                const h = v.get(l);
-                                h !== void 0 && (a = _(s, h, a));
+                            const d = h.filter((l) => typeof l == "object");
+                            for (const l of d) for (const p of k) p.matcher(l) && (a = w(r, p.entry, a));
+                            const y = d.filter((l) => l.classNames && Array.isArray(l.classNames)).map((l) => l.classNames.join(" "));
+                            for (const l of y) {
+                                const p = v.get(l);
+                                p !== void 0 && (a = w(r, p, a));
                             }
                             return a;
                         }),
-                        s
+                        r
                     );
                 }),
-                n
+                i
             );
         };
     });
 }
-function _(e, o, t) {
-    const r = t.proto();
-    if (r.__UPL_IS_HOOKED) return t;
-    r.__UPL_IS_HOOKED = !0;
-    for (const n of o.mixins) t = t.extend(n(e));
-    for (const n of o.hooks) {
-        const s = r[n.method];
-        r[n.method] = function (...c) {
-            const p = (...a) => {
-                if (s != null) return s.apply(this, a);
+function w(e, o, t) {
+    const n = t.proto();
+    if (n.__UPL_IS_HOOKED) return t;
+    n.__UPL_IS_HOOKED = !0;
+    for (const i of o.mixins) t = t.extend(i(e));
+    for (const i of o.hooks) {
+        const r = n[i.method];
+        n[i.method] = function (...c) {
+            const h = (...a) => {
+                if (r != null) return r.apply(this, a);
             };
-            return n.callback.call(this, e, p, ...c);
+            return i.callback.call(this, e, h, ...c);
         };
     }
     return t;
 }
 const G = Object.freeze(Object.defineProperty({ __proto__: null, extendClassByMatching: K, extendClassByName: A, hookComponentMethodByMatching: X, hookComponentMethodByName: q }, Symbol.toStringTag, { value: "Module" })),
-    i = Object.freeze(Object.defineProperty({ __proto__: null, ember: G, ws: N, xhr: z }, Symbol.toStringTag, { value: "Module" }));
+    s = Object.freeze(Object.defineProperty({ __proto__: null, ember: G, ws: R, xhr: D }, Symbol.toStringTag, { value: "Module" }));
 function Q(e) {
     if (e.rcp === void 0 || typeof e.rcp.preInit != "function" || typeof e.rcp.postInit != "function") throw new Error("context is not a valid Pengu Context!");
-    C(e);
+    E(e);
 }
 function $(e) {
     Q(e),
-        i.ws.hook("/lol-login/v1/session", (o, t) => {
+        s.ws.hook("/lol-login/v1/session", (o, t) => {
             (o.connected = !0), (o.state = "SUCCEEDED"), (o.error = null), t(o);
         }),
-        i.ws.hook("/lol-missions/v1/series", (o, t) => {}),
-        i.ws.hook("/lol-missions/v1/missions", (o, t) => {}),
-        i.ws.hook("/lol-platform-config/v1/namespaces/PlayerNotification", (o, t) => {}),
-        i.ws.hook("/lol-ranked/v1/notifications", (o, t) => {}),
-        i.ws.hook("/player-notifications/v1/notifications", (o, t) => {}),
-        i.ws.hook("/lol-statstones/v1/vignette-notifications", (o, t) => {}),
-        i.ws.hook("/lol-clash/v1/enabled", (o, t) => {}),
-        i.ws.hook("/lol-clash/v1/visible", (o, t) => {}),
-        i.ws.hook("/lol-clash/v1/ready", (o, t) => {}),
-        i.ws.hook("/lol-clash/v1/notifications", (o, t) => {}),
-        i.ws.hook("/lol-champion-mastery/v1/notifications", (o, t) => {}),
-        i.ws.hook("/lol-pft/v2/survey", (o, t) => {}),
-        i.ws.hook("/lol-challenges/v1/notifications", (o, t) => {}),
-        i.ws.hook("/lol-remedy/v1/remedy-notifications", (o, t) => {}),
-        i.ws.hook("/lol-player-behavior/v1/credibility-behavior-warnings", (o, t) => {}),
-        i.ws.hook("/lol-player-behavior/v2/reform-card", (o, t) => {}),
-        i.ws.hook("/lol-player-behavior/v1/reform-card", (o, t) => {}),
-        i.ws.hook("/lol-player-behavior/v1/reporter-feedback", (o, t) => {}),
-        i.ws.hook("/lol-player-behavior/v1/chat-restriction", (o, t) => {}),
-        i.ws.hook("/lol-player-behavior/v1/code-of-conduct-notification", (o, t) => {});
+        s.xhr.hookPost("/lol-leaver-buster/v1/notifications", (o, t) => {
+            const n = JSON.stringify({});
+            Object.defineProperty(o, "responseText", { writable: !0, value: n }), t();
+        }),
+        s.ws.hook("/lol-missions/v1/series", (o, t) => {}),
+        s.ws.hook("/lol-missions/v1/missions", (o, t) => {}),
+        s.ws.hook("/lol-platform-config/v1/namespaces/PlayerNotification", (o, t) => {}),
+        s.ws.hook("/lol-ranked/v1/notifications", (o, t) => {}),
+        s.ws.hook("/player-notifications/v1/notifications", (o, t) => {}),
+        s.ws.hook("/lol-statstones/v1/vignette-notifications", (o, t) => {}),
+        s.ws.hook("/lol-clash/v1/enabled", (o, t) => {}),
+        s.ws.hook("/lol-clash/v1/visible", (o, t) => {}),
+        s.ws.hook("/lol-clash/v1/ready", (o, t) => {}),
+        s.ws.hook("/lol-clash/v1/notifications", (o, t) => {}),
+        s.ws.hook("/lol-champion-mastery/v1/notifications", (o, t) => {}),
+        s.ws.hook("/lol-pft/v2/survey", (o, t) => {}),
+        s.ws.hook("/lol-challenges/v1/notifications", (o, t) => {}),
+        s.ws.hook("/lol-remedy/v1/remedy-notifications", (o, t) => {}),
+        s.ws.hook("/lol-player-behavior/v1/credibility-behavior-warnings", (o, t) => {}),
+        s.ws.hook("/lol-player-behavior/v2/reform-card", (o, t) => {}),
+        s.ws.hook("/lol-player-behavior/v1/reform-card", (o, t) => {}),
+        s.ws.hook("/lol-player-behavior/v1/reporter-feedback", (o, t) => {}),
+        s.ws.hook("/lol-player-behavior/v1/chat-restriction", (o, t) => {}),
+        s.ws.hook("/lol-player-behavior/v1/code-of-conduct-notification", (o, t) => {});
 }
 export { $ as init };
