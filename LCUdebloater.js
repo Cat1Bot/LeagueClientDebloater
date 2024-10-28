@@ -74,7 +74,6 @@
         '/SeasonalTooltipEnabled',
         '/EosNotificationsEnabled',
         '/vignette-notifications',
-        '/LcuSentryJSErrors'
     ];
     const blockedUrlsRegex = new RegExp(blockedUrls.map(s => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|'));
 
@@ -83,7 +82,7 @@
             return;
         }
 
-        if (url === "/lol-settings/v2/config" || url === "/lol-premade-voice/v1/first-experience" || url === "/lol-platform-config/v1/namespaces/LcuChampionSelect/PickOrderSwappingTooltipEnabled" || url === "/lol-platform-config/v1/namespaces/LcuChampionSelect/ChampTradingTooltipEnabled" ||url === "/lol-settings/v1/account/lol-parties" || url === "/lol-lobby/v1/autofill-displayed" || url === "/lol-perks/v1/show-auto-modified-pages-notification" || url === "/lol-platform-config/v1/namespaces/LeagueConfig/RankedReferenceModalEnabled" || url === "/lol-lobby-team-builder/champ-select/v1/has-auto-assigned-smite" || url === "/lol-platform-config/v1/namespaces/LeagueConfig") {
+        if (url === "/lol-settings/v2/config" || url === "/lol-premade-voice/v1/first-experience" || url === "/lol-platform-config/v1/namespaces/LcuChampionSelect/PickOrderSwappingTooltipEnabled" || url === "/lol-platform-config/v1/namespaces/LcuChampionSelect/ChampTradingTooltipEnabled" ||url === "/lol-settings/v1/account/lol-parties" || url === "/lol-lobby/v1/autofill-displayed" || url === "/lol-perks/v1/show-auto-modified-pages-notification" || url === "/lol-platform-config/v1/namespaces/LeagueConfig/RankedReferenceModalEnabled" || url === "/lol-lobby-team-builder/champ-select/v1/has-auto-assigned-smite" || url === "/lol-platform-config/v1/namespaces/LeagueConfig" || url === "/lol-client-config/v3/client-config/lol.client_settings.sentry_config") {
             const originalSend = this.send;
             this.send = function(body) {
                 let originalOnReadyStateChange = this.onreadystatechange;
@@ -124,6 +123,12 @@
                             content = JSON.stringify({
                                 showFirstExperienceInGame: false,
                                 showFirstExperienceInLCU: false
+                            });
+			} else if (url === "/lol-client-config/v3/client-config/lol.client_settings.sentry_config") {
+                            content = JSON.stringify({
+                                dsn: "",
+				isEnabled: false,
+                                sampleRate: 0
                             });
                         }
 
@@ -308,7 +313,7 @@
 
 import { jsx, render } from 'https://cdn.jsdelivr.net/npm/nano-jsx/+esm';
 
-const Version = 5;
+const Version = 6;
 
 const UpdateAlert = () => {
   const title = ['Update Required'];
