@@ -53,7 +53,6 @@
         '/performance',
         '/code-of-conduct-notification',
         '/credibility-behavior-warnings',
-        '/late-recognition',
         '/lol-champion-mastery/v1/notifications',
         '/lol-inventory/v1/notifications',
         '/CodeOfConductEnabled',
