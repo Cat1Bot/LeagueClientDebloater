@@ -1,0 +1,13 @@
+{
+    "forceSettings": {
+        "enabled": true,
+        "settings": {
+            "lcuPreferences": true,
+            "userExperience": true,
+            "notifications": true,
+            "parties": true
+        }
+    },
+    "debug": false,
+    "checkUpdate": true
+}
