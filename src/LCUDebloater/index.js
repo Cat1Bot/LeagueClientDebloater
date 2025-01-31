@@ -708,6 +708,7 @@ function Q(e) {
 		throw new Error("context is not a valid Pengu Context!")
 	E(e)
 }
+// ### INIT FUNCTION ###
 function $(e) {
 	Q(e),
 		s.ws.hook("/lol-login/v1/session", (o, t) => {
