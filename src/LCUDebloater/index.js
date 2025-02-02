@@ -95,7 +95,8 @@ import config from "./config.json";
 			url === "/lol-platform-config/v1/namespaces/LeagueConfig/RankedReferenceModalEnabled" ||
 			url === "/lol-lobby-team-builder/champ-select/v1/has-auto-assigned-smite" ||
 			url === "/lol-platform-config/v1/namespaces/LeagueConfig" ||
-			url === "/lol-client-config/v3/client-config/lol.client_settings.sentry_config"
+			url === "/lol-client-config/v3/client-config/lol.client_settings.sentry_config" ||
+			url ==="/lol-client-config/v3/client-config/lol.client_settings.datadog_rum_config"
 		) {
 			const originalSend = this.send
 			this.send = function (body) {
@@ -115,6 +116,21 @@ import config from "./config.json";
 								isSoundEnabled: true,
 								isTermsEnabled: false,
 								localizedLicensesURL: "",
+							})
+						if (url === "/lol-client-config/v3/client-config/lol.client_settings.datadog_rum_config") {
+							content = JSON.stringify({
+								applicationID: "",
+				                                clientToken: "",
+				                                isEnabled: false,
+				                                service: "",
+				                                sessionReplaySampleRate: 0,
+				                                sessionSampleRate: 0,
+				                                site: "",
+				                                telemetrySampleRate: 0,
+				                                traceSampleRate: 0,
+				                                trackLongTasks: false,
+				                                trackResources: false,
+				                                trackUserInteractions: false
 							})
 						} else if (url === "/lol-lobby/v1/autofill-displayed") {
 							content = JSON.stringify(true)
@@ -307,8 +323,7 @@ import config from "./config.json";
 					lastKnownMachineSpec: 3,
 					motionEffectsDisabled: true,
 					potatoModeEnabled: true,
-					closeLeagueClientDuringGame: true,
-					unloadLeagueClientUx: "always",
+					closeLeagueClientDuringGame: false,
 				}
 				patch({
 					endpoint: "/lol-settings/v2/local/lol-user-experience",
