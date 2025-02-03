@@ -344,7 +344,7 @@ import config from "./config.json";
 				})
 			}
 
-			if (settings.notifications) {
+			if (settings.parties) {
 				const partiesPayload = {
 					championTradeToggleTooltipSeen: true,
 					positionSwapToggleTooltipSeen: true,
