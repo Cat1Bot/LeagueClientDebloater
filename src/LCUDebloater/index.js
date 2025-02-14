@@ -24,186 +24,161 @@ function removeDebugInfo() {
 }
 
 function blockApis() {
-	const originalXHROpen = XMLHttpRequest.prototype.open
-	const blockedUrls = [
-		"/ClashConfig",
-		"/lol-missions",
-		"/sfx-notifications",
-		"/player-notifications",
-		"/Missions",
-		"/token-upsell",
-		"/menu-item-call-to-action-intro.webm",
-		"/global-notifications",
-		"/status-notification",
-		"/current-lp-change-notification",
-		"/Eternals/Enabled",
-		"/telemetry",
-		"/lol-client-config/v3/client-config/lol.client_settings.paw.enableRPTopUp",
-		"/lol.client_settings.vanguard.daysToReshowModal",
-		"/lol-pft",
-		"/AccountVerification",
-		"/lol-challenges/v1/notifications",
-		"/lol-lock-and-load",
-		"/FlexRestrictionModalEnabled",
-		"/lol-remedy",
-		"/eos-memorial",
-		"/lol-challenges-latest-level-up",
-		"/lol-player-behavior/v1/config",
-		"/IsSeasonMemorialModalEnabled",
-		"/reward-grants",
-		"/performance",
-		"/code-of-conduct-notification",
-		"/credibility-behavior-warnings",
-		"/lol-champion-mastery/v1/notifications",
-		"/lol-inventory/v1/notifications",
-		"/CodeOfConductEnabled",
-		"/reporter-feedback",
-		"/chat-restriction",
-		"/recent-final-split",
-		"/lol-player-behavior/v2/reform-card",
-		"/lol-player-behavior/v1/reform-card",
-		"/deep-links",
-		"/lol-shutdown",
-		"/lol-player-messaging",
-		"/lol-kr-shutdown-law",
-		"/vng-publisher-settings",
-		"/lol-ranked/v1/notifications",
-		"/recognition-history",
-		"/eos-notifications",
-		"/lol-gameflow/v1/player-kicked-vanguard",
-		"/SeasonalTooltipEnabled",
-		"/EosNotificationsEnabled",
-		"/vignette-notifications",
-	]
-	const blockedUrlsRegex = new RegExp(blockedUrls.map((s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|"))
+    const originalXHROpen = XMLHttpRequest.prototype.open;
+    const blockedUrls = [
+        '/ClashConfig',
+        '/lol-missions',
+        '/sfx-notifications',
+        '/player-notifications',
+        '/Missions',
+        '/token-upsell',
+        '/menu-item-call-to-action-intro.webm',
+        '/global-notifications',
+        '/status-notification',
+        '/current-lp-change-notification',
+        '/Eternals/Enabled',
+        '/telemetry',
+        '/lol-client-config/v3/client-config/lol.client_settings.paw.enableRPTopUp',
+        '/lol.client_settings.vanguard.daysToReshowModal',
+        '/lol-pft',
+        '/AccountVerification',
+        '/lol-challenges/v1/notifications',
+        '/lol-lock-and-load',
+        '/FlexRestrictionModalEnabled',
+        '/lol-remedy',
+        '/eos-memorial',
+        '/lol-challenges-latest-level-up',
+        '/lol-player-behavior/v1/config',
+        '/IsSeasonMemorialModalEnabled',
+        '/reward-grants',
+        '/performance',
+        '/code-of-conduct-notification',
+        '/credibility-behavior-warnings',
+        '/lol-champion-mastery/v1/notifications',
+        '/lol-inventory/v1/notifications',
+        '/CodeOfConductEnabled',
+        '/reporter-feedback',
+        '/chat-restriction',
+        '/recent-final-split',
+        '/lol-player-behavior/v2/reform-card',
+        '/lol-player-behavior/v1/reform-card',
+        '/deep-links',
+        '/lol-shutdown',
+        '/lol-player-messaging',
+        '/lol-kr-shutdown-law',
+        '/vng-publisher-settings',
+        '/lol-ranked/v1/notifications',
+        '/recognition-history',
+        '/eos-notifications',
+        '/lol-gameflow/v1/player-kicked-vanguard',
+        '/SeasonalTooltipEnabled',
+        '/EosNotificationsEnabled',
+        '/vignette-notifications',
+    ];
+    const blockedUrlsRegex = new RegExp(blockedUrls.map(s => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|'));
 
-	XMLHttpRequest.prototype.open = function (method, url) {
-		if (blockedUrlsRegex.test(url)) {
-			return
-		}
+    XMLHttpRequest.prototype.open = function(method, url) {
+        if (blockedUrlsRegex.test(url)) {
+            return;
+        }
 
-		if (
-			url === "/lol-settings/v2/config" ||
-			url === "/lol-premade-voice/v1/first-experience" ||
-			url === "/lol-platform-config/v1/namespaces/LcuChampionSelect/PickOrderSwappingTooltipEnabled" ||
-			url === "/lol-platform-config/v1/namespaces/LcuChampionSelect/ChampTradingTooltipEnabled" ||
-			url === "/lol-settings/v1/account/lol-parties" ||
-			url === "/lol-lobby/v1/autofill-displayed" ||
-			url === "/lol-perks/v1/show-auto-modified-pages-notification" ||
-			url === "/lol-platform-config/v1/namespaces/LeagueConfig/RankedReferenceModalEnabled" ||
-			url === "/lol-lobby-team-builder/champ-select/v1/has-auto-assigned-smite" ||
-			url === "/lol-platform-config/v1/namespaces/LeagueConfig" ||
-			url === "/lol-client-config/v3/client-config/lol.client_settings.sentry_config" ||
-			url === "/lol-client-config/v3/client-config/lol.client_settings.datadog_rum_config" ||
-			url === "/lol-client-config/v3/client-config/lol.client_settings.client_navigability.info_hub_disabled"
-		) {
-			const originalSend = this.send
-			this.send = function (body) {
-				let originalOnReadyStateChange = this.onreadystatechange
-				this.onreadystatechange = function (ev) {
-					if (this.readyState === 4) {
-						let content
+        if (url === "/lol-settings/v2/config" || url === "/lol-premade-voice/v1/first-experience" || url === "/lol-platform-config/v1/namespaces/LcuChampionSelect/PickOrderSwappingTooltipEnabled" || url === "/lol-platform-config/v1/namespaces/LcuChampionSelect/ChampTradingTooltipEnabled" || url === "/lol-settings/v1/account/lol-parties" || url === "/lol-lobby/v1/autofill-displayed" || url === "/lol-perks/v1/show-auto-modified-pages-notification" || url === "/lol-platform-config/v1/namespaces/LeagueConfig/RankedReferenceModalEnabled" || url === "/lol-lobby-team-builder/champ-select/v1/has-auto-assigned-smite" || url === "/lol-platform-config/v1/namespaces/LeagueConfig" || url === "/lol-client-config/v3/client-config/lol.client_settings.sentry_config" || url === "/lol-client-config/v3/client-config/lol.client_settings.datadog_rum_config" || url === "/lol-client-config/v3/client-config/lol.client_settings.client_navigability.info_hub_disabled") {
+            const originalSend = this.send;
+            this.send = function(body) {
+                let originalOnReadyStateChange = this.onreadystatechange;
+                this.onreadystatechange = function(ev) {
+                    if (this.readyState === 4) {
+                        let content;
 
-						if (url === "/lol-settings/v2/config") {
-							content = JSON.stringify({
-								isGameplayEnabled: true,
-								isHotkeysEnabled: true,
-								isInterfaceEnabled: true,
-								isLegalStatementsEnabled: false,
-								isPrivacyNoticeEnabled: false,
-								isReplaysEnabled: true,
-								isSoundEnabled: true,
-								isTermsEnabled: false,
-								localizedLicensesURL: "",
-							})
-						if (url === "/lol-client-config/v3/client-config/lol.client_settings.datadog_rum_config") {
-							content = JSON.stringify({
-								applicationID: "",
-				                clientToken: "",
-				                isEnabled: false,
-				                service: "",
-				                sessionReplaySampleRate: 0,
-				                sessionSampleRate: 0,
-				                site: "",
-				                telemetrySampleRate: 0,
-				                traceSampleRate: 0,
-				                trackLongTasks: false,
-				                trackResources: false,
-				                trackUserInteractions: false
-							})
-						} else if (
-							url === "/lol-lobby/v1/autofill-displayed" ||
-							url === "/lol-client-config/v3/client-config/lol.client_settings.client_navigability.info_hub_disabled"
-						) {
-							content = JSON.stringify(true)
-						} else if (
-							url === "/lol-platform-config/v1/namespaces/LcuChampionSelect/PickOrderSwappingTooltipEnabled" ||
-							url === "/lol-platform-config/v1/namespaces/LcuChampionSelect/ChampTradingTooltipEnabled" ||
-							url === "/lol-perks/v1/show-auto-modified-pages-notification" ||
-							url === "/lol-platform-config/v1/namespaces/LeagueConfig/RankedReferenceModalEnabled" ||
-							url === "/lol-lobby-team-builder/champ-select/v1/has-auto-assigned-smite"
-						) {
-							content = JSON.stringify(false)
-						} else if (url === "/lol-settings/v1/account/lol-parties") {
-							content = JSON.stringify({
-								data: {
-									hasSeenOpenPartyFirstExperience: true,
-									hasSeenOpenPartyTooltip: true,
-								},
-								schemaVersion: 3,
-							})
-						} else if (url === "/lol-premade-voice/v1/first-experience") {
-							content = JSON.stringify({
-								showFirstExperienceInGame: false,
-								showFirstExperienceInLCU: false,
-							})
-						} else if (url === "/lol-platform-config/v1/namespaces/LeagueConfig") {
-							content = JSON.stringify({
-								showFirstExperienceInGame: false,
-								showFirstExperienceInLCU: false,
-							})
-						} else if (url === "/lol-client-config/v3/client-config/lol.client_settings.sentry_config") {
-							content = JSON.stringify({
-								dsn: "",
-								isEnabled: false,
-								sampleRate: 0,
-							})
-						}
+                        if (url === "/lol-settings/v2/config") {
+                            content = JSON.stringify({
+                                isGameplayEnabled: true,
+                                isHotkeysEnabled: true,
+                                isInterfaceEnabled: true,
+                                isLegalStatementsEnabled: false,
+                                isPrivacyNoticeEnabled: false,
+                                isReplaysEnabled: true,
+                                isSoundEnabled: true,
+                                isTermsEnabled: false,
+                                localizedLicensesURL: ""
+                            });
+                        } else if (url === "/lol-lobby/v1/autofill-displayed" || url === "/lol-client-config/v3/client-config/lol.client_settings.client_navigability.info_hub_disabled") {
+                            content = JSON.stringify(true);
+                        } else if (url === "/lol-platform-config/v1/namespaces/LcuChampionSelect/PickOrderSwappingTooltipEnabled" || url === "/lol-platform-config/v1/namespaces/LcuChampionSelect/ChampTradingTooltipEnabled" || url === "/lol-perks/v1/show-auto-modified-pages-notification" || url === "/lol-platform-config/v1/namespaces/LeagueConfig/RankedReferenceModalEnabled" || url === "/lol-lobby-team-builder/champ-select/v1/has-auto-assigned-smite") {
+                            content = JSON.stringify(false);
+                        } else if (url === "/lol-settings/v1/account/lol-parties") {
+                            content = JSON.stringify({
+                                data: {
+                                    hasSeenOpenPartyFirstExperience: true,
+                                    hasSeenOpenPartyTooltip: true
+                                },
+                                schemaVersion: 3
+                            });
+                        } else if (url === "/lol-premade-voice/v1/first-experience") {
+                            content = JSON.stringify({
+                                showFirstExperienceInGame: false,
+                                showFirstExperienceInLCU: false
+                            });
+                        } else if (url === "/lol-platform-config/v1/namespaces/LeagueConfig") {
+                            content = JSON.stringify({
+                                showFirstExperienceInGame: false,
+                                showFirstExperienceInLCU: false
+                            });
+                        } else if (url === "/lol-client-config/v3/client-config/lol.client_settings.sentry_config") {
+                            content = JSON.stringify({
+                                dsn: "",
+                                isEnabled: false,
+                                sampleRate: 0
+                            });
+                        } else if (url === "/lol-client-config/v3/client-config/lol.client_settings.datadog_rum_config") {
+                            content = JSON.stringify({
+                                applicationID: "",
+                                clientToken: "",
+                                isEnabled: false,
+                                service: "",
+                                sessionReplaySampleRate: 0,
+                                sessionSampleRate: 0,
+                                site: "",
+                                telemetrySampleRate: 0,
+                                traceSampleRate: 0,
+                                trackLongTasks: false,
+                                trackResources: false,
+                                trackUserInteractions: false
+                            });
+                        }
 
-						Object.defineProperty(this, "responseText", {
-							value: content,
-						})
-						Object.defineProperty(this, "response", {
-							value: content,
-						})
+                        Object.defineProperty(this, 'responseText', {
+                            value: content
+                        });
+                        Object.defineProperty(this, 'response', {
+                            value: content
+                        });
 
-						if (originalOnReadyStateChange) {
-							return originalOnReadyStateChange.apply(this, arguments)
-						}
-					} else if (originalOnReadyStateChange) {
-						return originalOnReadyStateChange.apply(this, arguments)
-					}
-				}
-				originalSend.apply(this, arguments)
-			}
-		}
-		return originalXHROpen.apply(this, arguments)
-	}
+                        if (originalOnReadyStateChange) {
+                            return originalOnReadyStateChange.apply(this, arguments);
+                        }
+                    } else if (originalOnReadyStateChange) {
+                        return originalOnReadyStateChange.apply(this, arguments);
+                    }
+                };
+                originalSend.apply(this, arguments);
+            };
+        }
+        return originalXHROpen.apply(this, arguments);
+    };
 
-	const originalFetch = window.fetch
-	const fetchBlockedUrls = ["/tracing", "/memory", "/performance", "/telemetry", "/LoggingStart"]
-	const fetchBlockedUrlsRegex = new RegExp(
-		fetchBlockedUrls.map((s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|")
-	)
+    const originalFetch = window.fetch;
+    const fetchBlockedUrls = ['/tracing', '/memory', '/performance', '/telemetry', '/LoggingStart'];
+    const fetchBlockedUrlsRegex = new RegExp(fetchBlockedUrls.map(s => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|'));
 
-	window.fetch = function (input, init) {
-		const url = typeof input === "string" ? input : input.url
-		if (fetchBlockedUrlsRegex.test(url)) {
-			return Promise.reject()
-		}
-		return originalFetch(input, init)
-	}
-}}
+    window.fetch = function(input, init) {
+        const url = typeof input === 'string' ? input : input.url;
+        if (fetchBlockedUrlsRegex.test(url)) {
+            return Promise.reject();
+        }
+        return originalFetch(input, init);
+    }
+}
 
 function unnamed() {
 	function hideElement() {
@@ -463,7 +438,7 @@ async function checkUpdate() {
 	}
 }
 
-function Init() {
+function onInit() {
 	const onLoadFunctions = [];
 	const onDOMContentLoadedFunctions = [unnamed];
 
@@ -488,6 +463,8 @@ function Init() {
 		}
 	})
 }
+
+onInit()
 
 // !!! BLOCK NOTIFICATIONS CODE !!!
 class j {
@@ -772,7 +749,6 @@ function $(e) {
 		s.ws.hook("/lol-player-behavior/v1/reporter-feedback", (o, t) => {}),
 		s.ws.hook("/lol-player-behavior/v1/chat-restriction", (o, t) => {}),
 		s.ws.hook("/lol-player-behavior/v1/code-of-conduct-notification", (o, t) => {})
-		Init();
 }
 
 export { $ as init }
