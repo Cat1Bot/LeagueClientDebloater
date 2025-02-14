@@ -735,8 +735,14 @@ function Q(e) {
 // ### INIT FUNCTION ###
 function $(e) {
 	Q(e),
+		s.ws.hook("/lol-gameflow/v1/player-kicked-vanguard", (o, t) => {
+			;(o = !1), t(o)
+		}),
 		s.ws.hook("/lol-login/v1/session", (o, t) => {
-			;(o.connected = !0), (o.state = "SUCCEEDED"), (o.error = null), t(o)
+            (o.connected = !0), (o.state = "SUCCEEDED"), (o.error = null), t(o);
+        }),
+		s.ws.hook("/lol-client-config/v3/client-config/lol.client_settings.display_legacy_patch_numbers", (o, t) => {
+			;(o = !0), t(o)
 		}),
 		s.xhr.hookPost("/lol-leaver-buster/v1/notifications", (o, t) => {
 			const n = JSON.stringify({})
