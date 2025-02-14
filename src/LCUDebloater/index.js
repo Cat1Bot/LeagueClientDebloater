@@ -4,9 +4,7 @@
 
 import config from "./config.json";
 
-(function removeDebugInfo() {
-	if (config.debug) return
-
+function removeDebugInfo() {
 	const suppressConsoleMethods = () => {
 		console.info = function () {}
 		console.warn = function () {}
@@ -23,7 +21,7 @@ import config from "./config.json";
 	window.onunhandledrejection = function (event) {
 		event.preventDefault()
 	}
-})();
+}
 
 function blockApis() {
 	const originalXHROpen = XMLHttpRequest.prototype.open
@@ -96,7 +94,8 @@ function blockApis() {
 			url === "/lol-lobby-team-builder/champ-select/v1/has-auto-assigned-smite" ||
 			url === "/lol-platform-config/v1/namespaces/LeagueConfig" ||
 			url === "/lol-client-config/v3/client-config/lol.client_settings.sentry_config" ||
-			url ==="/lol-client-config/v3/client-config/lol.client_settings.datadog_rum_config"
+			url === "/lol-client-config/v3/client-config/lol.client_settings.datadog_rum_config" ||
+			url === "/lol-client-config/v3/client-config/lol.client_settings.client_navigability.info_hub_disabled"
 		) {
 			const originalSend = this.send
 			this.send = function (body) {
@@ -132,7 +131,10 @@ function blockApis() {
 				                trackResources: false,
 				                trackUserInteractions: false
 							})
-						} else if (url === "/lol-lobby/v1/autofill-displayed") {
+						} else if (
+							url === "/lol-lobby/v1/autofill-displayed" ||
+							url === "/lol-client-config/v3/client-config/lol.client_settings.client_navigability.info_hub_disabled"
+						) {
 							content = JSON.stringify(true)
 						} else if (
 							url === "/lol-platform-config/v1/namespaces/LcuChampionSelect/PickOrderSwappingTooltipEnabled" ||
@@ -201,7 +203,9 @@ function blockApis() {
 		}
 		return originalFetch(input, init)
 	}
+}}
 
+function unnamed() {
 	function hideElement() {
 		const elementsToHide = document.querySelectorAll(
 			'[name="lol-third-party-license"], .lol-settings-reset-button, [class="navigation-cta-wrapper navigation-pip-cta"], [class="navigation-cta-wrapper navigation-glow-cta"], [class="call-to-action-pip ember-view"]'
@@ -221,28 +225,27 @@ function blockApis() {
 		})
 	}
 
-	document.addEventListener("DOMContentLoaded", () => {
-		const body = document.body
+	const body = document.body
 
-		if (body) {
-			const hideObserver = new MutationObserver(hideElement)
-			hideObserver.observe(body, {
-				childList: true,
-				subtree: true,
-			})
-			hideElement()
+	if (!body) {
+		console.error("Document body is not avaible.")
+		return
+	}
 
-			const greyoutObserver = new MutationObserver(greyout)
-			greyoutObserver.observe(body, {
-				childList: true,
-				subtree: true,
-			})
-			greyout()
-		} else {
-			console.error("Document body is not available.")
-		}
+	const hideObserver = new MutationObserver(hideElement)
+	hideObserver.observe(body, {
+		childList: true,
+		subtree: true,
 	})
-}}
+	hideElement()
+
+	const greyoutObserver = new MutationObserver(greyout)
+	greyoutObserver.observe(body, {
+		childList: true,
+		subtree: true,
+	})
+	greyout()
+}
 
 function AdminWarn() {
 	const observer = new MutationObserver(function (mutationsList, observer) {
@@ -460,7 +463,10 @@ async function checkUpdate() {
 
 function Init() {
 	const onLoadFunctions = [];
-	const onDOMContentLoadedFunctions = [];
+	const onDOMContentLoadedFunctions = [unnamed];
+
+	if (!config.debug) removeDebugInfo();
+	if (config.blockApis) blockApis();
 
 	if (config.checkUpdate) onLoadFunctions.push(checkUpdate)
 	if (config.forceSettings.enabled) {

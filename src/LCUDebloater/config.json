@@ -8,6 +8,7 @@
             "parties": true
         }
     },
+    "blockApis": true,
     "debug": false,
     "checkUpdate": true
 }
