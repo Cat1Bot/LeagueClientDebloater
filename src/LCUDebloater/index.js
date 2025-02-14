@@ -266,11 +266,13 @@ function AdminWarn() {
 			firstGeneralRow.parentNode.insertBefore(adminBox, firstGeneralRow)
 		}
 	})
-	if (document.body) {
-		observer.observe(document.body, { childList: true, subtree: true })
-	} else {
-		console.error("Document body is not available for MutationObserver.")
+
+	if (!document.body) {
+		console.error("Document body is not avaible for MutationObserver.")
+		return
 	}
+
+	observer.observe(document.body, { childList: true, subtree: true })
 }
 
 function forceSettings() {
