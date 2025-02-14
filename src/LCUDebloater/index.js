@@ -25,7 +25,7 @@ import config from "./config.json";
 	}
 })();
 
-(function blockApis() {
+function blockApis() {
 	const originalXHROpen = XMLHttpRequest.prototype.open
 	const blockedUrls = [
 		"/ClashConfig",
@@ -120,25 +120,24 @@ import config from "./config.json";
 						if (url === "/lol-client-config/v3/client-config/lol.client_settings.datadog_rum_config") {
 							content = JSON.stringify({
 								applicationID: "",
-				                                clientToken: "",
-				                                isEnabled: false,
-				                                service: "",
-				                                sessionReplaySampleRate: 0,
-				                                sessionSampleRate: 0,
-				                                site: "",
-				                                telemetrySampleRate: 0,
-				                                traceSampleRate: 0,
-				                                trackLongTasks: false,
-				                                trackResources: false,
-				                                trackUserInteractions: false
+				                clientToken: "",
+				                isEnabled: false,
+				                service: "",
+				                sessionReplaySampleRate: 0,
+				                sessionSampleRate: 0,
+				                site: "",
+				                telemetrySampleRate: 0,
+				                traceSampleRate: 0,
+				                trackLongTasks: false,
+				                trackResources: false,
+				                trackUserInteractions: false
 							})
 						} else if (url === "/lol-lobby/v1/autofill-displayed") {
 							content = JSON.stringify(true)
 						} else if (
-							url ===
-								"/lol-platform-config/v1/namespaces/LcuChampionSelect/PickOrderSwappingTooltipEnabled" ||
+							url === "/lol-platform-config/v1/namespaces/LcuChampionSelect/PickOrderSwappingTooltipEnabled" ||
 							url === "/lol-platform-config/v1/namespaces/LcuChampionSelect/ChampTradingTooltipEnabled" ||
-							url == "/lol-perks/v1/show-auto-modified-pages-notification" ||
+							url === "/lol-perks/v1/show-auto-modified-pages-notification" ||
 							url === "/lol-platform-config/v1/namespaces/LeagueConfig/RankedReferenceModalEnabled" ||
 							url === "/lol-lobby-team-builder/champ-select/v1/has-auto-assigned-smite"
 						) {
@@ -243,44 +242,35 @@ import config from "./config.json";
 			console.error("Document body is not available.")
 		}
 	})
-})();
+}}
 
-(function AdminWarn() {
-	function initializeObserver() {
-		const observer = new MutationObserver(function (mutationsList, observer) {
-			const firstGeneralRow = document.querySelector(".lol-settings-general-row, .lol-settings-notifications-row")
-
-			if (firstGeneralRow && !document.querySelector(".admin-warning-box")) {
-				var adminBox = document.createElement("div")
-				adminBox.classList.add("admin-warning-box")
-				adminBox.style.backgroundColor = "#1e2328"
-				adminBox.style.color = "#f0e6d2"
-				adminBox.style.padding = "6px"
-				adminBox.style.marginBottom = "10px"
-				adminBox.style.borderRadius = "0"
-				adminBox.style.borderLeft = "3.5px solid #c89b3c"
-				adminBox.style.fontWeight = "bold"
-				adminBox.style.fontSize = "14px"
-				adminBox.style.fontFamily = "LoL Display, Arial"
-				adminBox.textContent = "Some of these settings are enforced by League Client Debloater"
-
-				firstGeneralRow.parentNode.insertBefore(adminBox, firstGeneralRow)
-			}
-		})
-
-		if (document.body) {
-			observer.observe(document.body, { childList: true, subtree: true })
-		} else {
-			console.error("Document body is not available for MutationObserver.")
+function AdminWarn() {
+	const observer = new MutationObserver(function (mutationsList, observer) {
+		const firstGeneralRow = document.querySelector(".lol-settings-general-row, .lol-settings-notifications-row")
+		if (firstGeneralRow && !document.querySelector(".admin-warning-box")) {
+			var adminBox = document.createElement("div")
+			adminBox.classList.add("admin-warning-box")
+			adminBox.style.backgroundColor = "#1e2328"
+			adminBox.style.color = "#f0e6d2"
+			adminBox.style.padding = "6px"
+			adminBox.style.marginBottom = "10px"
+			adminBox.style.borderRadius = "0"
+			adminBox.style.borderLeft = "3.5px solid #c89b3c"
+			adminBox.style.fontWeight = "bold"
+			adminBox.style.fontSize = "14px"
+			adminBox.style.fontFamily = "LoL Display, Arial"
+			adminBox.textContent = "Some of these settings are enforced by League Client Debloater"
+			firstGeneralRow.parentNode.insertBefore(adminBox, firstGeneralRow)
 		}
+	})
+	if (document.body) {
+		observer.observe(document.body, { childList: true, subtree: true })
+	} else {
+		console.error("Document body is not available for MutationObserver.")
 	}
+}
 
-	document.addEventListener("DOMContentLoaded", initializeObserver)
-})();
-
-(function forceSettings() {
-	if (!config.forceSettings.enabled) return
-
+function forceSettings() {
 	const BASE_HEADER = {
 		"Content-Type": "application/json",
 	}
@@ -300,67 +290,61 @@ import config from "./config.json";
 		fetch(endpoint, request)
 	}
 
-	window.addEventListener(
-		"load",
-		function () {
-			const settings = config.forceSettings.settings
+	const settings = config.forceSettings.settings
 
-			if (settings.lcuPreferences) {
-				const lcuPreferencesPayload = {
-					"top-nav-updates-eat-seen": true,
-					uploadCrashReports: false,
-				}
-				patch({
-					endpoint: "/lol-settings/v2/account/LCUPreferences/lol-general",
-					data: lcuPreferencesPayload,
-					schemaVersion: 1,
-				})
-			}
+	if (settings.lcuPreferences) {
+		const lcuPreferencesPayload = {
+			"top-nav-updates-eat-seen": true,
+			uploadCrashReports: false,
+		}
+		patch({
+			endpoint: "/lol-settings/v2/account/LCUPreferences/lol-general",
+			data: lcuPreferencesPayload,
+			schemaVersion: 1,
+		})
+	}
 
-			if (settings.userExperience) {
-				const userExperiencePayload = {
-					hasBeenPromptedForPotatoMode: true,
-					lastKnownMachineSpec: 3,
-					motionEffectsDisabled: true,
-					potatoModeEnabled: true,
-					closeLeagueClientDuringGame: false,
-				}
-				patch({
-					endpoint: "/lol-settings/v2/local/lol-user-experience",
-					data: userExperiencePayload,
-					schemaVersion: 3,
-				})
-			}
+	if (settings.userExperience) {
+		const userExperiencePayload = {
+			hasBeenPromptedForPotatoMode: true,
+			lastKnownMachineSpec: 3,
+			motionEffectsDisabled: true,
+			potatoModeEnabled: true,
+			closeLeagueClientDuringGame: false,
+		}
+		patch({
+			endpoint: "/lol-settings/v2/local/lol-user-experience",
+			data: userExperiencePayload,
+			schemaVersion: 3,
+		})
+	}
 
-			if (settings.notifications) {
-				const notificationsPayload = {
-					disableCollectionsNotifications: true,
-					disableEsportsNotifications: true,
-				}
-				patch({
-					endpoint: "/lol-settings/v2/account/LCUPreferences/lol-notifications",
-					data: notificationsPayload,
-					schemaVersion: 1,
-				})
-			}
+	if (settings.notifications) {
+		const notificationsPayload = {
+			disableCollectionsNotifications: true,
+			disableEsportsNotifications: true,
+		}
+		patch({
+			endpoint: "/lol-settings/v2/account/LCUPreferences/lol-notifications",
+			data: notificationsPayload,
+			schemaVersion: 1,
+		})
+	}
 
-			if (settings.parties) {
-				const partiesPayload = {
-					championTradeToggleTooltipSeen: true,
-					positionSwapToggleTooltipSeen: true,
-					reportAndMutingTooltipShown: true,
-					runeRecommenderTutorialTipSeen: true,
-				}
-				patch({
-					endpoint: "/lol-settings/v2/account/LCUPreferences/lol-champ-select",
-					data: partiesPayload,
-					schemaVersion: 0,
-				})
-			}
-		},
-		false
-	)
-})()
+	if (settings.parties) {
+		const partiesPayload = {
+			championTradeToggleTooltipSeen: true,
+			positionSwapToggleTooltipSeen: true,
+			reportAndMutingTooltipShown: true,
+			runeRecommenderTutorialTipSeen: true,
+		}
+		patch({
+			endpoint: "/lol-settings/v2/account/LCUPreferences/lol-champ-select",
+			data: partiesPayload,
+			schemaVersion: 0,
+		})
+	}
+}
 
 import { jsx, render } from "https://cdn.jsdelivr.net/npm/nano-jsx/+esm"
 
@@ -396,89 +380,106 @@ const UpdateAlert = () => {
       </div>
     </div>
   `
-};
+}
 
-(function checkUpdate() {
-	if (!config.checkUpdate) return
+async function checkUpdate() {
+	const delay = (t) => new Promise((r) => setTimeout(r, t))
+	const manager = () => document.getElementById("lol-uikit-layer-manager-wrapper")
 
-	window.addEventListener("load", async () => {
-		const delay = (t) => new Promise((r) => setTimeout(r, t))
-		const manager = () => document.getElementById("lol-uikit-layer-manager-wrapper")
+	try {
+		const response = await fetch(
+			"https://raw.githubusercontent.com/Cat1Bot/LeagueClientDebloater/refs/heads/main/updatecfg.json"
+		)
 
-		try {
-			const response = await fetch(
-				"https://raw.githubusercontent.com/Cat1Bot/LeagueClientDebloater/refs/heads/main/updatecfg.json"
-			)
+		if (!response.ok) throw new Error(`Network response was not ok: ${response.statusText}`);
 
-			if (!response.ok) {
-				throw new Error(`Network response was not ok: ${response.statusText}`)
+		const config = await response.json()
+
+		let updateRequired = Version < config.minversion
+		let modifyResponse = Version < config.latestversion
+
+		if (updateRequired) {
+			while (!manager()) {
+				await delay(1200)
 			}
 
-			const config = await response.json()
+			const root = document.createElement("div")
+			render(UpdateAlert, root)
+			manager().appendChild(root)
+		}
 
-			let updateRequired = Version < config.minversion
-			let modifyResponse = Version < config.latestversion
+		if (modifyResponse) {
+			let _xhrOriginalOpen = XMLHttpRequest.prototype.open
 
-			if (updateRequired) {
-				while (!manager()) {
-					await delay(1200)
-				}
+			XMLHttpRequest.prototype.open = function (_, url) {
+				if (url === "/lol-service-status/v1/ticker-messages") {
+					let originalSend = this.send
 
-				const root = document.createElement("div")
-				render(UpdateAlert, root)
-				manager().appendChild(root)
-			}
+					this.send = function (body) {
+						let originalOnReadyStateChanged = this.onreadystatechange
 
-			if (modifyResponse) {
-				let _xhrOriginalOpen = XMLHttpRequest.prototype.open
+						this.onreadystatechange = function (ev) {
+							if (this.readyState === 4) {
+								let originalContent = JSON.parse(this.responseText)
 
-				XMLHttpRequest.prototype.open = function (_, url) {
-					if (url === "/lol-service-status/v1/ticker-messages") {
-						let originalSend = this.send
-
-						this.send = function (body) {
-							let originalOnReadyStateChanged = this.onreadystatechange
-
-							this.onreadystatechange = function (ev) {
-								if (this.readyState === 4) {
-									let originalContent = JSON.parse(this.responseText)
-
-									const customMessage = {
-										createdAt: "",
-										heading: "Plugin Update Available",
-										message:
-											"A newer version of League Client Debloater is available. Click here to get the latest version.",
-										severity: "warn",
-										updatedAt: "",
-									}
-
-									originalContent.push(customMessage)
-
-									const updatedContent = JSON.stringify(originalContent)
-
-									Object.defineProperty(this, "responseText", {
-										writable: true,
-										value: updatedContent,
-									})
-
-									return originalOnReadyStateChanged.apply(this, [ev])
+								const customMessage = {
+									createdAt: "",
+									heading: "Plugin Update Available",
+									message:
+										"A newer version of League Client Debloater is available. Click here to get the latest version.",
+									severity: "warn",
+									updatedAt: "",
 								}
 
-								return originalOnReadyStateChanged.apply(this, arguments)
+								originalContent.push(customMessage)
+
+								const updatedContent = JSON.stringify(originalContent)
+
+								Object.defineProperty(this, "responseText", {
+									writable: true,
+									value: updatedContent,
+								})
+
+								return originalOnReadyStateChanged.apply(this, [ev])
 							}
 
-							originalSend.apply(this, [body])
+							return originalOnReadyStateChanged.apply(this, arguments)
 						}
-					}
 
-					_xhrOriginalOpen.apply(this, arguments)
+						originalSend.apply(this, [body])
+					}
 				}
+
+				_xhrOriginalOpen.apply(this, arguments)
 			}
-		} catch (error) {
-			console.error("Failed to load config:", error)
+		}
+	} catch (error) {
+		console.error("Failed to load config:", error)
+	}
+}
+
+function Init() {
+	const onLoadFunctions = [];
+	const onDOMContentLoadedFunctions = [];
+
+	if (config.checkUpdate) onLoadFunctions.push(checkUpdate)
+	if (config.forceSettings.enabled) {
+		onLoadFunctions.push(forceSettings);
+		onDOMContentLoadedFunctions.push(AdminWarn);
+	}
+
+	addEventListener("load", () => {
+		for (const func of onLoadFunctions) {
+			func();
 		}
 	})
-})();
+
+	addEventListener("DOMContentLoaded", () => {
+		for (const func of onDOMContentLoadedFunctions) {
+			func();
+		}
+	})
+}
 
 // !!! BLOCK NOTIFICATIONS CODE !!!
 class j {
@@ -757,5 +758,7 @@ function $(e) {
 		s.ws.hook("/lol-player-behavior/v1/reporter-feedback", (o, t) => {}),
 		s.ws.hook("/lol-player-behavior/v1/chat-restriction", (o, t) => {}),
 		s.ws.hook("/lol-player-behavior/v1/code-of-conduct-notification", (o, t) => {})
+		Init();
 }
+
 export { $ as init }
