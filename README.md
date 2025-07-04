@@ -1,37 +1,14 @@
-> [!NOTE]  
-> This repository is no longer supported due to limitations and issues with hooking the League Client UX, which means it can’t fully debloat the client on first load.  
->  
-> Please use [League Patch Collection](https://github.com/Cat1Bot/league-patch-collection) instead — it’s an external mod menu that works 100% of the time, with a GUI and customizable options like disable Vanguard, auto-accept, dodge, and debloater. It also supports Riot Client and future titles like 2XKO.
->
-> Thanks for understanding!
+[!NOTE]  
+This repository is no longer supported due to fundamental limitations in hooking the League Client UX.  
+Due of how the client plugin system loads, this plugin cannot fully debloat the client on first load, which defeats its core purpose.  
+Despite attempts, maintaining and fixing these inherent UX hooking issues proved unfeasible and unstable, and I cant be bothered anymore with this plugin.
+
+For a reliable and user-friendly solution, please use [League Patch Collection](https://github.com/Cat1Bot/league-patch-collection) instead.  
+It is an external mod menu that works 100% of the time without bricking client or causing other unintended issues.  
+Features include GUI with customizable options such as disable Vanguard, auto-accept, dodge, debloater, and much more.  
+It also supports the Riot Client and future Riot titles like 2XKO.
+
+**Thanks for understanding.**
 
 # League Client Debloater
-All-in-one JS plugin to remove bloat and junk from your League Client.
-
-## Features
-* Removes most popups, nags, glows, and notifications, including but not limited to: remedy notifications, report feedback, honor history, chat restriction, tooltips, "I understand" behavior warnings, and much more.
-* Removes junk from the settings tab (TOS, privacy notice, code of conduct, etc.).
-* Removes the Clash tab and Eternals.
-* Removes scamtum and mythic shop.
-* Disables notifications.
-* Disables most logging to free up memory.
-* Makes the client load 2 times faster (fixes home hub loading issues).
-* Removes the missions button and disables functionality—no more annoying "click" sound while in-game.
-* Disables telemetry and tracking endpoints to improve privacy and performance.
-* Disables animations to speed up your client and provide a cleaner feel.
-* Removes the LoR button.
-
-## How to install
-1. Make sure you have Pengu Loader installed: [Pengu Loader](https://github.com/PenguLoader/PenguLoader).
-2. Open Pengu Loader and click on the Plugins tab, then click "Open folder".
-3. Drag and drop/paste **LCUdebloater.js** into your plugins folder. When a new version is released, repeat this step.
-4. Restart the client or open DevTools (F12/Ctrl+Shift+I) to initialize the plugin.
-5. Open the hosts file located in **C:\Windows\System32\drivers\etc** and add the following (press enter after each domain so it's on its own line): `0.0.0.0 data.riotgames.com` `0.0.0.0 telemetry.sgp.pvp.net` `0.0.0.0 ekg.riotgames.com` `0.0.0.0 metric-api.newrelic.com` `0.0.0.0 pft.leagueoflegends.com`
-
-## FAQ
-
-**Q:** Why do I have to use the hosts file to block the tracking domains you mentioned? Why can't the plugin just do it?  
-**A:** The requests to tracking domains are made by embedded content within the client—any request made by embedded content is unhookable and unblockable due to cross-origin policy.
-
-**Q:** Why do I still see some popups/notifications?  
-**A:** The plugin is not perfect; Riot may add new endpoints at any time. If you see anything you'd like removed, please open an issue, and I will address it in the next update.
+This was an all-in-one JS plugin to remove bloat and junk from your League Client. It is no longer supported or maintained. Please use the alternative above.
