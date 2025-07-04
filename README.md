@@ -5,7 +5,7 @@
 >
 > Thanks for understanding!
 
-# LeagueClientDebloater
+# League Client Debloater
 All-in-one JS plugin to remove bloat and junk from your League Client.
 
 ## Features
@@ -19,7 +19,6 @@ All-in-one JS plugin to remove bloat and junk from your League Client.
 * Removes the missions button and disables functionality—no more annoying "click" sound while in-game.
 * Disables telemetry and tracking endpoints to improve privacy and performance.
 * Disables animations to speed up your client and provide a cleaner feel.
-* Force-disables crash reporting.
 * Removes the LoR button.
 
 ## How to install
@@ -33,12 +32,6 @@ All-in-one JS plugin to remove bloat and junk from your League Client.
 
 **Q:** Why do I have to use the hosts file to block the tracking domains you mentioned? Why can't the plugin just do it?  
 **A:** The requests to tracking domains are made by embedded content within the client—any request made by embedded content is unhookable and unblockable due to cross-origin policy.
-
-**Q:** Why can't I set the client to auto-close during a game?  
-**A:** Having the client set to never close actually speeds it up since it doesn't have to reload resources after the game. If enough people don't like this, I'll remove the enforcement of this setting.
-
-**Q:** Why does it say some of these settings are enforced by your administrator?  
-**A:** This plugin automatically enables/disables certain settings to optimize client performance, such as disabling animations. Altering these settings defeats the purpose of optimizing the client, which is why they are locked.
 
 **Q:** Why do I still see some popups/notifications?  
 **A:** The plugin is not perfect; Riot may add new endpoints at any time. If you see anything you'd like removed, please open an issue, and I will address it in the next update.
