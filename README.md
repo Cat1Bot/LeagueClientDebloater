@@ -1,3 +1,10 @@
+> [!NOTE]  
+> This repository is no longer supported due to limitations and issues with hooking the League Client UX, which means it can’t fully debloat the client on first load.  
+>  
+> Please use [league-patch-collection](https://github.com/Cat1Bot/league-patch-collection) instead — it’s an external mod menu that works 100% of the time, with a GUI and customizable options like disable Vanguard, auto-accept, dodge, and debloater. It also supports Riot Client and future titles like 2XKO.
+>
+> Thanks for understanding!
+
 # LeagueClientDebloater
 All-in-one JS plugin to remove bloat and junk from your League Client.
 
@@ -35,7 +42,3 @@ All-in-one JS plugin to remove bloat and junk from your League Client.
 
 **Q:** Why do I still see some popups/notifications?  
 **A:** The plugin is not perfect; Riot may add new endpoints at any time. If you see anything you'd like removed, please open an issue, and I will address it in the next update.
-
-## Recommended: League Patch Collection
-
-If you’re looking for a more toned-down approach to debloating, check out my [League Patch Collection](https://github.com/Cat1Bot/league-patch-collection). It works well alongside this plugin and provides essential tweaks to patch out annoying or useless config flags while removing less overall bloat.
