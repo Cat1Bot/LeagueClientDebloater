@@ -1,7 +1,7 @@
 > [!NOTE]  
 > This repository is no longer supported due to limitations and issues with hooking the League Client UX, which means it can’t fully debloat the client on first load.  
 >  
-> Please use [league-patch-collection](https://github.com/Cat1Bot/league-patch-collection) instead — it’s an external mod menu that works 100% of the time, with a GUI and customizable options like disable Vanguard, auto-accept, dodge, and debloater. It also supports Riot Client and future titles like 2XKO.
+> Please use [League Patch Collection](https://github.com/Cat1Bot/league-patch-collection) instead — it’s an external mod menu that works 100% of the time, with a GUI and customizable options like disable Vanguard, auto-accept, dodge, and debloater. It also supports Riot Client and future titles like 2XKO.
 >
 > Thanks for understanding!
 
@@ -12,7 +12,7 @@ All-in-one JS plugin to remove bloat and junk from your League Client.
 * Removes most popups, nags, glows, and notifications, including but not limited to: remedy notifications, report feedback, honor history, chat restriction, tooltips, "I understand" behavior warnings, and much more.
 * Removes junk from the settings tab (TOS, privacy notice, code of conduct, etc.).
 * Removes the Clash tab and Eternals.
-* Removes redundant APIs used by the client.
+* Removes scamtum and mythic shop.
 * Disables notifications.
 * Disables most logging to free up memory.
 * Makes the client load 2 times faster (fixes home hub loading issues).
